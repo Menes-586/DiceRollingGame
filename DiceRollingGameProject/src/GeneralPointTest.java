@@ -6,9 +6,11 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
+
 class GeneralPointTest {
 
-    private GeneralPoint generalPoint;
+    private GeneralPoint  generalPoint;
     @BeforeEach
     void setUp() {
         generalPoint =  new GeneralPoint();

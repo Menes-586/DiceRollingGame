@@ -16,8 +16,8 @@ public class DiceRollingGame {
 
         // getting target round that players want to  play
         int targetRound = getTargetRound();
-        PointStrategy pointStrategy = new PointStrategy();
-        initializeRounds(targetRound,players, pointStrategy);
+        PointContext pointContext = new PointContext();
+        initializeRounds(targetRound,players, pointContext);
         showAllPlayersWithUserNameAndTotalPoint(players);
         showWinnerPlayer(getWinnerPlayer(players));
 
@@ -40,7 +40,7 @@ public class DiceRollingGame {
         }
     }
 
-    private static void initializeRounds(int targetRound, ArrayList<Player> players, PointStrategy pointStrategy) {
+    private static void initializeRounds(int targetRound, ArrayList<Player> players, PointContext pointContext) {
         int[] currentRolledDicePoints = {0,0,0};
 
         while (targetRound > 0 ){
@@ -52,9 +52,9 @@ public class DiceRollingGame {
            //STRATEGY PATTERN USAGE
             if(isTwoPointSameAndGreaterThanOtherPoint(currentRolledDicePoints)){
                 // polymorphism
-               pointStrategy.addPoint(new SpecialPoint(), players, currentRolledDicePoints);
+               pointContext.addPoint(new SpecialPoint(), players, currentRolledDicePoints);
            }else{
-               pointStrategy.addPoint(new GeneralPoint(), players, currentRolledDicePoints);
+               pointContext.addPoint(new GeneralPoint(), players, currentRolledDicePoints);
            }
            targetRound--;
         }

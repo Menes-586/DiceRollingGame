@@ -5,12 +5,12 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PointStrategyTest {
+class PointContextTest {
 
-    private PointStrategy pointStrategy;
+    private PointContext pointContext;
     @BeforeEach
     void setUp() {
-        pointStrategy = new PointStrategy();
+        pointContext = new PointContext();
     }
 
     @Test
@@ -19,7 +19,7 @@ class PointStrategyTest {
         int[] points =  {5,5,4};
         ArrayList<Player> players = createPlayers();
 
-        pointStrategy.addPoint(new SpecialPoint(),players,points);
+        pointContext.addPoint(new SpecialPoint(),players,points);
         assertEquals(10,players.get(0).getTotalPoint());
         assertEquals(10,players.get(1).getTotalPoint());
         assertEquals(4,players.get(2).getTotalPoint());
@@ -31,7 +31,7 @@ class PointStrategyTest {
         int[] points =  {4,5,3};
         ArrayList<Player> players = createPlayers();
 
-        pointStrategy.addPoint(new GeneralPoint(),players,points);
+        pointContext.addPoint(new GeneralPoint(),players,points);
         assertEquals(4,players.get(0).getTotalPoint());
         assertEquals(5,players.get(1).getTotalPoint());
         assertEquals(3,players.get(2).getTotalPoint());
