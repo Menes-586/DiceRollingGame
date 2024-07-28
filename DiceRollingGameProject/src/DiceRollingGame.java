@@ -81,7 +81,7 @@ public class DiceRollingGame {
     }
 
     public static ArrayList<String> getPlayersName(Scanner scanner) {
-        ArrayList<String> userNames =  new ArrayList<>();
+        ArrayList<String> playerNames =  new ArrayList<>();
         System.out.println("------- Welcome to DiceRollingGame --------- ");
 
         int playerNumber = getPlayerNumber();
@@ -91,9 +91,9 @@ public class DiceRollingGame {
         for (int i = 1; i <=playerNumber ; i++) {
             System.out.printf("Enter a %d. playerName : " , i);
             playerName = scanner.next();
-            addPlayerNameToList(userNames,playerName);
+            addPlayerNameToList(playerNames,playerName);
         }
-        return userNames;
+        return playerNames;
     }
 
     // get numbers of players who want to  play
@@ -126,7 +126,7 @@ public class DiceRollingGame {
     }
 
     // target round should be between 1 and 99
-    private static int getTargetRound() throws InputMismatchException {
+    private static int getTargetRound() {
         int targetRound; // default target round
         // {ASK MENTOR} buradaki scanner objecsini getTargetRound a parametre olarak mi vermeliyim ??
         // yoksa bu dogru kullanim mi ??
