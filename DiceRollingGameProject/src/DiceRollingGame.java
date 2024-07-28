@@ -15,13 +15,14 @@ public class DiceRollingGame {
         // getting target round that players want to  play
         int targetRound = getTargetRound();
 
-        PointAdder pointAdder = new PointAdder();
-        initializeRounds(targetRound,players, pointAdder);
+        PointStrategy pointStrategy = new PointStrategy();
+        initializeRounds(targetRound,players, pointStrategy);
         showAllPlayersWithUserNameAndTotalPoint(players);
         showWinnerPlayer(getWinnerPlayer(players));
 
 
     }
+
 
     private static Player getWinnerPlayer(ArrayList<Player> players) {
         // gets  winner player
@@ -39,7 +40,7 @@ public class DiceRollingGame {
         }
     }
 
-    private static void initializeRounds(int targetRound, ArrayList<Player> players, PointAdder pointAdder) {
+    private static void initializeRounds(int targetRound, ArrayList<Player> players, PointStrategy pointStrategy) {
         int[] currentRolledDicePoints = {0,0,0};
 
         while (targetRound > 0 ){
@@ -51,9 +52,9 @@ public class DiceRollingGame {
            //STRATEGY PATTERN USAGE
             if(isSameDoublePointAndGreaterThanOtherPoint(currentRolledDicePoints)){
                 // polymorphism
-               pointAdder.addPoint(new SpecialPoint(), players, currentRolledDicePoints);
+               pointStrategy.addPoint(new SpecialPoint(), players, currentRolledDicePoints);
            }else{
-               pointAdder.addPoint(new GeneralPoint(), players, currentRolledDicePoints);
+               pointStrategy.addPoint(new GeneralPoint(), players, currentRolledDicePoints);
            }
            targetRound--;
         }
@@ -70,8 +71,7 @@ public class DiceRollingGame {
 
     private static ArrayList<Player> createPlayers(ArrayList<String> playerNames) {
 
-        // {ASK MENTOR}this method create and add islemi ayni anda yapiyor dogru mu ??
-
+        // {ASK MENTOR}this method create and add islemi ayni anda yapiyor dogru mu ?
         ArrayList<Player> players = new ArrayList<>();
         for(String playerName : playerNames){
             players.add(new Player(playerName));
@@ -92,7 +92,6 @@ public class DiceRollingGame {
             playerName = scanner.next();
             addPlayerNameToList(userNames,playerName);
         }
-
         return userNames;
     }
 
@@ -131,7 +130,7 @@ public class DiceRollingGame {
         return targetRound;
     }
 
-    // check whether user enter valid inputs
+    // check whether user enter valid inputs which has to be between 1 and  99 inclusive
     private static boolean isTargetRoundValid(int targetRound) {
         if((targetRound <= 99 && targetRound >= 1)){
             return true;
