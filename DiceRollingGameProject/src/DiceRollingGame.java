@@ -9,6 +9,7 @@ public class DiceRollingGame {
     public static void main(String[] args) {
 
 
+
         Scanner scanner = new Scanner(System.in);
         // {ASK MENTOR} burada scanner objesini olusturmam dogrumu yoksa getPlayersName classinin icinden mi olusturmaliyim ??
         ArrayList<String> playersName = getPlayersName(scanner);
