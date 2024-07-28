@@ -6,6 +6,9 @@ public class Player implements IPlayer {
     private String userName;
     private int totalPoint = 0;
 
+    public Player() {
+    }
+
     public Player(String userName) {
         this.userName = userName;
     }
