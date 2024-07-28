@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -12,9 +13,9 @@ public class DiceRollingGame {
         // {ASK MENTOR} burada scanner objesini olusturmam dogrumu yoksa getPlayersName classinin icinden mi olusturmaliyim ??
         ArrayList<String> playersName = getPlayersName(scanner);
         ArrayList<Player> players = createPlayers(playersName);
+
         // getting target round that players want to  play
         int targetRound = getTargetRound();
-
         PointStrategy pointStrategy = new PointStrategy();
         initializeRounds(targetRound,players, pointStrategy);
         showAllPlayersWithUserNameAndTotalPoint(players);
@@ -82,9 +83,9 @@ public class DiceRollingGame {
     public static ArrayList<String> getPlayersName(Scanner scanner) {
         ArrayList<String> userNames =  new ArrayList<>();
         System.out.println("------- Welcome to DiceRollingGame --------- ");
-        System.out.print("How many player do you wanna play ? ");
-        int playerNumber = scanner.nextInt();
-        String playerName = null;
+
+        int playerNumber = getPlayerNumber();
+        String playerName;
 
         // get player name and call addPlayerNameToList method to add player names to arraylist
         for (int i = 1; i <=playerNumber ; i++) {
@@ -93,6 +94,20 @@ public class DiceRollingGame {
             addPlayerNameToList(userNames,playerName);
         }
         return userNames;
+    }
+
+    // get numbers of players who want to  play
+    private static int getPlayerNumber() {
+        System.out.print("How many player do you wanna play : ");
+        Scanner scanner = new Scanner(System.in);
+        // handling exception in case of users enter not integer input
+        try{
+            return scanner.nextInt();
+        }catch (InputMismatchException exception){
+            System.out.println("You enter a invalid input . ENTER an INTEGER VALUE!!!" + exception.getMessage());
+            // getting value again until user enter the valid input
+            return getPlayerNumber();
+        }
     }
 
     private static void addPlayerNameToList(ArrayList<String> userNames, String playerName) {
@@ -111,15 +126,22 @@ public class DiceRollingGame {
     }
 
     // target round should be between 1 and 99
-    private static int getTargetRound() {
-        int targetRound;
+    private static int getTargetRound() throws InputMismatchException {
+        int targetRound; // default target round
         // {ASK MENTOR} buradaki scanner objecsini getTargetRound a parametre olarak mi vermeliyim ??
         // yoksa bu dogru kullanim mi ??
         Scanner scanner = new Scanner(System.in);
-
         do{
-            System.out.print("Enter the target number of rounds : ");
-            targetRound = scanner.nextInt();
+            try{
+                System.out.print("Enter the target number of rounds : ");
+                targetRound = scanner.nextInt();
+
+            }catch (InputMismatchException exception){
+                System.out.println("Please enter a valid input (Integer)");
+                // getting targetRound from user again
+                return getTargetRound();
+            }
+
         }while(!isTargetRoundValid(targetRound));
 
         // bunu yaptigimda hata aliyorum acaba recursiondan dolayi mi hata aliyorum ?? daha sonra dene
