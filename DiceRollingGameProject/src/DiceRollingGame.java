@@ -26,7 +26,6 @@ public class DiceRollingGame {
 
 
     private static Player getWinnerPlayer(ArrayList<Player> players) {
-        // gets  winner player
         // TO DO check  whether two or more people gets same points also ???
         return players.stream().max(Comparator.comparing(Player::getTotalPoint)).get();
     }
@@ -51,7 +50,7 @@ public class DiceRollingGame {
             System.out.printf("%s : " + currentRolledDicePoints[0] + " --- %s : " + currentRolledDicePoints[1] + " --- %s: " + currentRolledDicePoints[2] + "\n",
                     players.get(0).getUserName(),players.get(1).getUserName(),players.get(2).getUserName());
            //STRATEGY PATTERN USAGE
-            if(isSameDoublePointAndGreaterThanOtherPoint(currentRolledDicePoints)){
+            if(isTwoPointSameAndGreaterThanOtherPoint(currentRolledDicePoints)){
                 // polymorphism
                pointStrategy.addPoint(new SpecialPoint(), players, currentRolledDicePoints);
            }else{
@@ -115,7 +114,7 @@ public class DiceRollingGame {
     }
 
 
-    private static Boolean isSameDoublePointAndGreaterThanOtherPoint(int [] currentPointsOfPlayers) {
+    private static Boolean isTwoPointSameAndGreaterThanOtherPoint(int [] currentPointsOfPlayers) {
 
         if((currentPointsOfPlayers[0] == currentPointsOfPlayers[1]) && currentPointsOfPlayers[0] > currentPointsOfPlayers[2]){
             return  true;
